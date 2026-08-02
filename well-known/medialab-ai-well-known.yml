@@ -1,0 +1,139 @@
+generated: '2026-08-01'
+method: searched
+source: live probes of every MediaLab.AI corporate and portfolio-brand host
+note: >-
+  Probed /.well-known/security.txt, /openid-configuration, /oauth-authorization-server,
+  /oauth-protected-resource, /api-catalog and /ai-plugin.json on every host. Note that
+  imgur.com, api.imgur.com and whisper.sh are single-page-app catch-alls that answer
+  HTTP 200 with an HTML shell for EVERY /.well-known/* path - those 200s are recorded
+  below as html-catch-all, not as documents. Only genius.com serves a real well-known
+  document.
+hosts:
+- host: https://genius.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    file: medialab-ai-genius-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://api.genius.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+- host: https://medialab.la
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    note: Webflow returns an "Invalid .well-known request" body
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://imgur.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: html-catch-all
+    note: SPA returns the Imgur HTML shell for every /.well-known path - not a document
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/api-catalog
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    result: html-catch-all
+- host: https://api.imgur.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/api-catalog
+    status: 200
+    result: html-catch-all
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    result: html-catch-all
+- host: https://kik.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: html-catch-all
+- host: https://whisper.sh
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: html-catch-all
+- host: https://worldstarhiphop.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: html-catch-all
+- host: https://www.datpiff.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://aminoapps.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 000
+    note: host did not resolve/connect at probe time
+agent_cards:
+  probed:
+  - /.well-known/agent-card.json
+  - /.well-known/agent.json
+  hosts_probed:
+  - medialab.la
+  - genius.com
+  - api.genius.com
+  - docs.genius.com
+  - imgur.com
+  - api.imgur.com
+  - apidocs.imgur.com
+  - kik.com
+  - whisper.sh
+  result: none
+  note: >-
+    No A2A Agent Card found. Every 200 observed on these paths was an HTML SPA
+    catch-all (imgur.com, api.imgur.com, whisper.sh) and was rejected. No a2a/
+    artifact is written - an agent card is search-only and must never be authored
+    on a provider's behalf.

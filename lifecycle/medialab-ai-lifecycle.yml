@@ -1,0 +1,104 @@
+generated: '2026-08-01'
+method: searched
+source:
+- https://apidocs.imgur.com/#api-deprecation
+- https://docs.genius.com/
+apis:
+- api: Imgur API
+  versioning:
+    scheme: uri-path
+    current: '3'
+    base: https://api.imgur.com/3/
+    rule: >-
+      "Everything (methods, parameters, etc.) is fixed to a version number, and every
+      call must contain one. Different Versions are available at different endpoint
+      URLs. The latest version is Version 3."
+    parallel_paths:
+    - path: /account/v1/
+      note: A small number of newer account endpoints (block status/create/delete) are served here.
+    docs: https://apidocs.imgur.com/#endpoints
+  deprecation:
+    policy_published: true
+    policy_url: https://apidocs.imgur.com/#api-deprecation
+    sunset_header: true
+    sunset_standard: RFC 8594
+    process:
+    - The endpoint documentation will be marked as deprecated and a migration plan will be added.
+    - >-
+      The endpoint will have a Sunset header added to indicate the last date the
+      endpoint should be relied upon.
+    - An email will be sent to active third party developers notifying of the deprecation.
+    - An entry to the API changelog table will be added.
+    - >-
+      When the Sunset date has passed a follow-up email will be sent to active third
+      party developers notifying of the deprecation.
+  deprecated_features:
+  - feature: OAuth 2.0 response_type=code
+    status: deprecated
+    note: '"The code and pin response types have been deprecated and will soon no longer be supported."'
+    source: https://apidocs.imgur.com/#the-response_type-parameter
+  - feature: OAuth 2.0 response_type=pin
+    status: deprecated
+    source: https://apidocs.imgur.com/#the-response_type-parameter
+  - feature: imgurpython (official Python client library)
+    status: deprecated
+    source: https://github.com/Imgur/imgurpython
+  changelog:
+    published: true
+    location: https://apidocs.imgur.com/#api-changelog
+    columns:
+    - Date Introduced
+    - Available Until
+    - Endpoint
+    - Additional Information
+    observed: >-
+      The changelog table is published as part of the Postman documentation but had no
+      dated rows at capture time (2026-08-01), so no changelog/ artifact is written.
+  status_page: https://status.imgur.com/
+  status_page_evidence: >-
+    "Status for the API can be found at status.imgur.com!" - first line of the Imgur
+    API documentation. Probed 2026-08-01, HTTP 200.
+  support:
+    channels:
+    - kind: help-center
+      url: https://help.imgur.com/hc/en-us
+    - kind: community
+      url: https://stackoverflow.com/questions/tagged/imgur
+      note: '"The quickest way to get help is by posting your question on StackOverflow with the Imgur tag."'
+    - kind: social
+      url: https://twitter.com/imgurAPI
+      note: Named in the docs for feature requests.
+  sla:
+    published: false
+- api: Genius API
+  versioning:
+    scheme: unversioned
+    base: https://api.genius.com/
+    note: The Genius API base URL carries no version segment and no versioning policy is published.
+  deprecation:
+    policy_published: false
+  status_page: none
+  status_page_note: >-
+    status.genius.com resolves but redirects to genius.com - it is not a status page.
+  support:
+    channels:
+    - kind: help-center
+      url: https://support.genius.com/hc/en-us
+    - kind: forum
+      url: https://genius.com/Genius-api-forum
+      note: Linked from the Genius API docs navigation as "Support Forum".
+  sla:
+    published: false
+retired_surfaces:
+- brand: Kik
+  surface: Kik Bot API / developer portal
+  host: dev.kik.com
+  status: retired
+  evidence: >-
+    dev.kik.com did not resolve/connect when probed on 2026-08-01 (curl exit 000);
+    kik.com/developers returns 404. The Kik Bot Shop shell at bots.kik.com still
+    returns 200 but no developer documentation or API reference remains.
+deprecated_operations: []
+deprecated_operations_note: >-
+  Neither brand publishes an OpenAPI definition, so no operation-level deprecated
+  flags could be derived.

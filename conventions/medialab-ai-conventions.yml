@@ -1,0 +1,184 @@
+generated: '2026-08-01'
+method: searched
+source:
+- https://docs.genius.com/
+- https://apidocs.imgur.com/
+note: >-
+  Cross-cutting request/response semantics captured from each brand's published API
+  documentation. The two portfolio APIs do NOT share conventions - they were built by
+  separate companies and acquired independently, so envelopes, pagination and
+  versioning differ. They are recorded separately rather than merged.
+idempotency:
+  supported: false
+  evidence: >-
+    Neither the Genius API documentation nor the Imgur API documentation defines an
+    Idempotency-Key header, an idempotency parameter, or any request-replay contract.
+    No Idempotency pointer is emitted in apis.yml for this provider.
+apis:
+- api: Genius API
+  base_url: https://api.genius.com/
+  transport:
+    https_required: true
+    evidence: '"All interaction with the API must be done over HTTPS."'
+  authentication:
+    style: OAuth 2.0 bearer token, or a client access token for unscoped read-only endpoints
+    header: 'Authorization: Bearer ACCESS_TOKEN'
+    alternatives:
+    - access_token query parameter on GET
+    - access_token element in a POST body
+    ref: authentication/medialab-ai-authentication.yml
+  content_type: application/json
+  response_envelope:
+    style: meta/response
+    shape: '{ "meta": { "status": <int> }, "response": { ... } }'
+    fields:
+    - field: meta.status
+      description: Integer representation of the HTTP status code for the response.
+      always_present: true
+    - field: meta.message
+      description: Error detail string; present only when meta.status is 4xx or 5xx.
+      always_present: false
+    - field: response
+      description: Top-level nested object carrying the result; present on success.
+      always_present: false
+    evidence: >-
+      "All Genius API responses are JSON. Every JSON response has a meta field with a
+      status value that is an integer representation of the HTTP status code."
+  pagination:
+    style: page-number
+    parameters:
+    - name: per_page
+      description: Number of results to return per request.
+    - name: page
+      description: Paginated offset - per_page=5&page=3 returns songs 11-15.
+    applies_to:
+    - GET /referents
+    - GET /artists/:id/songs
+    response_fields: none documented
+  sorting:
+    parameter: sort
+    values:
+    - title
+    - popularity
+    applies_to:
+    - GET /artists/:id/songs
+    default: title
+  content_negotiation:
+    parameter: text_format
+    values:
+    - dom
+    - plain
+    - html
+    default: dom
+    delimiter: comma
+    description: >-
+      Controls how text bodies are formatted. Multiple values may be requested; the
+      response is an object keyed by format. plain is plain text, html is a string of
+      unescaped HTML, dom is a nested object representing an HTML DOM hierarchy.
+  versioning:
+    scheme: unversioned
+    note: The Genius API base URL carries no version segment.
+  metadata: none documented
+  request_tracing: none documented
+  rate_limit_signaling: none documented
+  ref_errors: errors/medialab-ai-problem-types.yml
+- api: Imgur API
+  base_url: https://api.imgur.com/3/
+  transport:
+    https_required: true
+    port: 443
+    evidence: >-
+      "Every endpoint is accessed via an SSL-enabled HTTPS (port 443), this is because
+      everything is using OAuth 2.0."
+  authentication:
+    style: >-
+      Client-ID header for anonymous/public reads and anonymous uploads; OAuth 2.0
+      bearer access token for account-scoped calls
+    headers:
+    - 'Authorization: Client-ID YOUR_CLIENT_ID'
+    - 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+    ref: authentication/medialab-ai-authentication.yml
+  content_type: application/json
+  content_negotiation:
+    style: url-extension
+    formats:
+    - format: json
+      example: https://api.imgur.com/3/gallery.json
+      default: true
+    - format: jsonp
+      example: https://api.imgur.com/3/gallery.json?callback=function_name
+      note: request the callback parameter via GET or POST
+    - format: xml
+      example: https://api.imgur.com/3/gallery.xml
+  response_envelope:
+    style: data/status/success
+    shape: '{ "data": { ... }, "status": <int>, "success": <bool> }'
+    fields:
+    - field: data
+      description: Every response is wrapped in a data tag; the payload always lives here.
+      always_present: true
+    - field: status
+      description: HTTP status code echoed into the body.
+      always_present: true
+    - field: success
+      description: Boolean success flag.
+      always_present: true
+    evidence: >-
+      "Each response is wrapped in a data tag... We also include a status code and
+      success flag in the response."
+  pagination:
+    style: page-number
+    parameters:
+    - name: page
+      required: false
+      description: 'Page number of the result set (default: 0)'
+    - name: perPage
+      required: false
+      description: 'Limit the number of results per page (default: 50, max: 100)'
+    rule: 'For the most part, if the API action is plural, you can page it via a query string parameter.'
+    exceptions:
+    - path: /gallery
+      note: /gallery endpoints do not support the perPage query string parameter.
+    - path: /album/{id}/images
+      note: not paged
+    example: https://api.imgur.com/3/account/imgur/images/0.json?perPage=42&page=6
+  caching:
+    etag: true
+    response_header: ETag
+    request_header: If-None-Match
+    not_modified_status: 304
+    quoting: 'the quotations around the hash must be included'
+    note: >-
+      Requests carrying If-None-Match still count towards rate limits even when they
+      return 304.
+    evidence: https://apidocs.imgur.com/#performance-tips
+  versioning:
+    scheme: uri-path
+    current: '3'
+    base: https://api.imgur.com/3/
+    rule: >-
+      "Everything (methods, parameters, etc.) is fixed to a version number, and every
+      call must contain one. Different Versions are available at different endpoint
+      URLs."
+    note: >-
+      A small number of newer account endpoints are served from an /account/v1/ path
+      alongside /3/ (account block status, block create, block delete).
+  rate_limit_signaling:
+    supported: true
+    ref: rate-limits/medialab-ai-rate-limits.yml
+    headers:
+    - X-RateLimit-UserLimit
+    - X-RateLimit-UserRemaining
+    - X-RateLimit-UserReset
+    - X-RateLimit-ClientLimit
+    - X-RateLimit-ClientRemaining
+    - X-Post-Rate-Limit-Limit
+    - X-Post-Rate-Limit-Remaining
+    - X-Post-Rate-Limit-Reset
+    status_endpoint: GET https://api.imgur.com/3/credits
+  deprecation:
+    sunset_header: true
+    ref: lifecycle/medialab-ai-lifecycle.yml
+  metadata: none documented
+  request_tracing: none documented
+  ref_errors: errors/medialab-ai-problem-types.yml

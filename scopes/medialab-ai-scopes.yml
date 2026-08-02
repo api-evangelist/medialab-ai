@@ -1,0 +1,77 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.genius.com/#available-scopes
+docs: https://docs.genius.com/#available-scopes
+note: >-
+  Captured verbatim from the Genius API "Available Scopes" table. Only the Genius API
+  has an OAuth scope surface across the MediaLab.AI portfolio - Imgur's OAuth 2.0
+  implementation documents no scope parameter, so an authorized Imgur token carries
+  full account access for the granting user and no scopes/ entries exist for it.
+schemes:
+- name: GeniusOAuth2
+  api: Genius API
+  source: https://docs.genius.com/#authentication
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.genius.com/oauth/authorize
+    tokenUrl: https://api.genius.com/oauth/token
+  - flow: implicit
+    authorizationUrl: https://api.genius.com/oauth/authorize
+  scope_delimiter: space
+scopes:
+- scope: me
+  description: Read account information for the currently authenticated user.
+  endpoints:
+  - GET /account
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - https://docs.genius.com/#available-scopes
+- scope: create_annotation
+  description: Create a new annotation on a public web page.
+  endpoints:
+  - POST /annotations
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - https://docs.genius.com/#available-scopes
+- scope: manage_annotation
+  description: Update or delete an annotation created by the authenticated user.
+  endpoints:
+  - PUT /annotations/:id
+  - DELETE /annotations/:id
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - https://docs.genius.com/#available-scopes
+- scope: vote
+  description: Upvote, downvote or remove the authenticated user's vote on an annotation.
+  endpoints:
+  - PUT /annotations/:id/upvote
+  - PUT /annotations/:id/downvote
+  - PUT /annotations/:id/unvote
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - https://docs.genius.com/#available-scopes
+unscoped_access:
+  api: Genius API
+  credential: client access token
+  description: >-
+    Apps without user-specific behaviour can use the client access token generated on
+    the API Client management page. It is valid only for read-only endpoints that are
+    not restricted by a required scope - GET /annotations/:id, GET /referents,
+    GET /songs/:id, GET /artists/:id, GET /artists/:id/songs, GET /web_pages/lookup
+    and GET /search.
+  source: https://docs.genius.com/#access-for-apps-without-users
+apis_without_scopes:
+- api: Imgur API
+  reason: >-
+    Imgur's documented OAuth 2.0 authorization request accepts only client_id,
+    response_type and state - there is no scope parameter. Account access is
+    all-or-nothing per authorized user.
+  source: https://apidocs.imgur.com/#authorization

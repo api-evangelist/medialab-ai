@@ -1,0 +1,60 @@
+# MediaLab.AI
+
+> MediaLab.AI Inc. is a Santa Monica, California holding company for consumer internet brands. It acquires and operates established community and media properties — Genius, Imgur, Kik, WorldStarHipHop, Whisper, Amino and DatPiff — and monetizes them through advertising across an owned-and-operated portfolio it says reaches roughly one in three US internet users each month. MediaLab also runs Assembly Exchange, its own programmatic ad exchange. MediaLab publishes no corporate developer portal; the public API surface is carried by two portfolio brands, Genius and Imgur.
+
+Generated: 2026-08-01. Method: generated (no /llms.txt is published on medialab.la, docs.genius.com or apidocs.imgur.com — all returned 404 or an HTML shell).
+
+## APIs
+
+- [Genius API](https://docs.genius.com/): Annotations, referents, songs, artists, web pages and search over the Genius music-knowledge community. OAuth 2.0. Base URL https://api.genius.com/. Commercial use requires a license (api-sales@genius.com).
+- [Imgur API v3](https://apidocs.imgur.com/): Images, albums, the public gallery, comments and accounts on Imgur. OAuth 2.0 plus a Client-ID header for anonymous access. Base URL https://api.imgur.com/3/. Commercial use is routed through RapidAPI.
+
+## Specs
+
+- No OpenAPI, Swagger, GraphQL, AsyncAPI or gRPC definition is published for either API. Probed /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs and /redoc on api.genius.com, docs.genius.com, genius.com, api.imgur.com, apidocs.imgur.com and imgur.com; every HTTP 200 was an HTML single-page-app shell.
+- [Imgur API Postman collection](postman/medialab-ai-imgur-api.postman_collection.json): Imgur's own public Postman collection, 85 requests across Account, Gallery, Album, Comment, Image and Feed. Imgur documents this as the source of truth for its API reference.
+
+## Docs
+
+- [Genius API reference](https://docs.genius.com/)
+- [Genius authentication and scopes](https://docs.genius.com/#authentication)
+- [Genius API client management](https://genius.com/api-clients)
+- [Imgur API reference](https://apidocs.imgur.com/)
+- [Imgur authorization and OAuth](https://apidocs.imgur.com/#authorization-and-oauth)
+- [Imgur rate limits](https://apidocs.imgur.com/#rate-limits)
+- [Imgur API deprecation policy](https://apidocs.imgur.com/#api-deprecation)
+- [Imgur status page](https://status.imgur.com/)
+
+## Artifacts
+
+- [Authentication profile](authentication/medialab-ai-authentication.yml): OAuth 2.0 for both APIs; Genius client access token for unscoped reads; Imgur Client-ID header for anonymous access.
+- [OAuth scopes](scopes/medialab-ai-scopes.yml): Genius publishes four scopes — me, create_annotation, manage_annotation, vote. Imgur documents no scope parameter.
+- [API conventions](conventions/medialab-ai-conventions.yml): Genius meta/response envelope; Imgur data/status/success envelope, ETag/If-None-Match caching, page/perPage paging. Neither API supports idempotency keys.
+- [Error catalog](errors/medialab-ai-problem-types.yml): Proprietary envelopes, not RFC 9457. No error-code registry on either API.
+- [Rate limits](rate-limits/medialab-ai-rate-limits.yml): Imgur ~12,500 requests/day and ~1,250 uploads/day per app, 1,250 POSTs/hour per IP, X-RateLimit-* headers. Genius publishes none.
+- [Lifecycle](lifecycle/medialab-ai-lifecycle.yml): Imgur versions in the URI path (v3) and honours RFC 8594 Sunset headers with a published deprecation process. Genius is unversioned with no deprecation policy. Kik's developer surface (dev.kik.com) is retired.
+- [Conformance](conformance/medialab-ai-conformance.yml): OAuth 2.0 yes; RFC 8594 Sunset and RFC 7232 conditional requests yes (Imgur); RFC 9457, OIDC, RFC 8414, OpenAPI, GraphQL, AsyncAPI, MCP and A2A all no.
+- [Data model](data-model/medialab-ai-data-model.yml): Genius annotation/referent/song/artist/web_page/account; Imgur account/image/album/comment/gallery/tag.
+- [Packages](packages/medialab-ai-packages.yml): One first-party client library across the whole portfolio — imgurpython (Imgur Inc., now deprecated).
+- [Embedded components](components/medialab-ai-components.yml): the Genius web annotator script at https://genius.codes.
+- [Well-known documents](well-known/medialab-ai-well-known.yml): only genius.com serves a real one, an RFC 9116 security.txt.
+- [Vulnerability disclosure](security/medialab-ai-vulnerability-disclosure.yml): Genius runs a Bugcrowd VDP; no other MediaLab property publishes a disclosure policy.
+- [Domain security](security/medialab-ai-domain-security.yml): TLS/HSTS/DNSSEC/CAA/SPF/DMARC probe across corporate and brand hosts.
+- [Agent skills](skills/_index.yml): four packaged flows grounded in documented endpoints.
+- [MCP candidate](mcp/medialab-ai-mcp.yml): a derived candidate tool set. No official MCP server exists for MediaLab.AI, Genius or Imgur.
+
+## Company
+
+- [MediaLab.AI](https://medialab.la/)
+- [Brands](https://medialab.la/brands)
+- [Careers](https://medialab.la/careers)
+- [Contact](https://medialab.la/contact)
+- [GitHub organization](https://github.com/medialab-ai)
+- [Terms of service](https://medialab.la/terms-of-service)
+- [Privacy policy](https://medialab.la/privacy-policy)
+
+## Optional
+
+- [Forge Global secondary-market listing](https://forgeglobal.com/medialab-ai_stock/)
+- [Imgur commercial pricing via RapidAPI](https://rapidapi.com/imgur/api/imgur-9/pricing)
+- [Genius Bugcrowd VDP](https://bugcrowd.com/engagements/Genius-VDP)

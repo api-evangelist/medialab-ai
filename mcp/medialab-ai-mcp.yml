@@ -1,0 +1,149 @@
+generated: '2026-08-01'
+method: derived
+status: candidate
+source:
+- postman/medialab-ai-imgur-api.postman_collection.json
+- https://docs.genius.com/#resources
+search_result: none
+search_note: >-
+  No official or hosted MCP server exists for MediaLab.AI, Genius or Imgur. Searched
+  the MCP reference server catalogue, the official MCP registry and community
+  directories; neither brand appears. No /mcp, /sse or /message endpoint responds on
+  api.genius.com or api.imgur.com. NO apis.yml MCPServer pointer is emitted - this
+  file is a derived design candidate, not a published server, and must not be scored
+  as one.
+server:
+  name: medialab-ai
+  transport: http
+  url: null
+  published: false
+tools:
+- name: genius_search
+  description: Search documents hosted on Genius.
+  source_operation: 'Genius API: GET /search'
+  inputs:
+  - name: q
+    description: The term to search for
+    required: true
+  auth: client access token (no scope required)
+- name: genius_get_song
+  description: Get data for a specific song, including its referents.
+  source_operation: 'Genius API: GET /songs/:id'
+  inputs:
+  - name: id
+    required: true
+  - name: text_format
+    enum:
+    - dom
+    - plain
+    - html
+  auth: client access token (no scope required)
+- name: genius_get_artist
+  description: Get data for a specific artist.
+  source_operation: 'Genius API: GET /artists/:id'
+  inputs:
+  - name: id
+    required: true
+  - name: text_format
+  auth: client access token (no scope required)
+- name: genius_list_artist_songs
+  description: List documents (songs) for an artist. 20 items per request by default.
+  source_operation: 'Genius API: GET /artists/:id/songs'
+  inputs:
+  - name: id
+    required: true
+  - name: sort
+    enum:
+    - title
+    - popularity
+  - name: per_page
+  - name: page
+  auth: client access token (no scope required)
+- name: genius_get_annotation
+  description: Get data for a specific annotation.
+  source_operation: 'Genius API: GET /annotations/:id'
+  inputs:
+  - name: id
+    required: true
+  - name: text_format
+  auth: client access token (no scope required)
+- name: genius_list_referents
+  description: List referents by content item or by the user responsible for an included annotation.
+  source_operation: 'Genius API: GET /referents'
+  inputs:
+  - name: created_by_id
+  - name: song_id
+  - name: web_page_id
+  - name: text_format
+  - name: per_page
+  - name: page
+  constraint: Pass only one of song_id and web_page_id, not both.
+  auth: client access token (no scope required)
+- name: genius_lookup_web_page
+  description: >-
+    Look up a web page by its full URL to get the Genius ID used for referent lookups.
+    Only available for pages that already have at least one annotation.
+  source_operation: 'Genius API: GET /web_pages/lookup'
+  inputs:
+  - name: raw_annotatable_url
+  - name: canonical_url
+  - name: og_url
+  auth: client access token (no scope required)
+- name: imgur_get_image
+  description: Get information about an image.
+  source_operation: 'Imgur API: GET /3/image/{imageHash}'
+  auth: 'Authorization: Client-ID'
+- name: imgur_upload_image
+  description: Upload an image, anonymously or to the authenticated account.
+  source_operation: 'Imgur API: POST /3/image'
+  auth: 'Authorization: Client-ID (anonymous) or Bearer (account)'
+  cost: 10 rate-limit credits per call
+- name: imgur_get_album
+  description: Get information about an album.
+  source_operation: 'Imgur API: GET /3/album/{albumHash}'
+  auth: 'Authorization: Client-ID'
+- name: imgur_get_album_images
+  description: Get all images in an album. Not paged.
+  source_operation: 'Imgur API: GET /3/album/{albumHash}/images'
+  auth: 'Authorization: Client-ID'
+- name: imgur_search_gallery
+  description: Search the public Imgur gallery.
+  source_operation: 'Imgur API: GET /3/gallery/search/{sort}/{window}/{page}'
+  inputs:
+  - name: q
+    required: true
+  auth: 'Authorization: Client-ID'
+- name: imgur_get_gallery
+  description: Get the public gallery for a section, sort, window and page.
+  source_operation: 'Imgur API: GET /3/gallery/{section}/{sort}/{window}/{page}'
+  auth: 'Authorization: Client-ID'
+- name: imgur_get_tags
+  description: List the default gallery tags.
+  source_operation: 'Imgur API: GET /3/tags'
+  auth: 'Authorization: Client-ID'
+- name: imgur_get_comment
+  description: Get a comment by id.
+  source_operation: 'Imgur API: GET /3/comment/{commentId}'
+  auth: 'Authorization: Client-ID'
+- name: imgur_get_account
+  description: Get the base account profile for a username.
+  source_operation: 'Imgur API: GET /3/account/{username}'
+  auth: 'Authorization: Client-ID or Bearer'
+- name: imgur_get_credits
+  description: Check the current rate-limit credit status for the application.
+  source_operation: 'Imgur API: GET /3/credits'
+  auth: 'Authorization: Client-ID'
+coverage:
+  tools_proposed: 17
+  imgur_requests_documented: 85
+  genius_endpoints_documented: 13
+  note: >-
+    Deliberately limited to read-mostly and low-consequence operations. Write and
+    destructive operations (annotation create/delete, votes, album/image deletion,
+    account settings, blocks, reporting) are intentionally NOT proposed as tools.
+tool_crosswalk: null
+tool_crosswalk_note: >-
+  No mcp/medialab-ai-tool-crosswalk.yml is emitted. The crosswalk binds MCP tools to
+  backing OpenAPI operationIds so a tool inherits a real inputSchema; neither brand
+  publishes an OpenAPI, and there is no published MCP server, so there is nothing on
+  either side of the crosswalk to bind.

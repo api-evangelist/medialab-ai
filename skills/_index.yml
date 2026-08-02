@@ -1,0 +1,52 @@
+generated: '2026-08-01'
+method: generated
+grounding: provider-documentation
+grounding_note: >-
+  Neither MediaLab.AI portfolio API publishes an OpenAPI definition, so these skills
+  are grounded in documented HTTP method + path pairs taken verbatim from
+  docs.genius.com and from Imgur's public Postman collection
+  (postman/medialab-ai-imgur-api.postman_collection.json) instead of in operationIds.
+  Every endpoint referenced below appears verbatim in one of those two sources. No
+  endpoint, parameter or scope has been invented.
+sources:
+- https://docs.genius.com/
+- postman/medialab-ai-imgur-api.postman_collection.json
+skills:
+- file: medialab-ai-genius-lookup-song-annotations.md
+  name: Look up a song and read its Genius annotations
+  api: Genius API
+  endpoints:
+  - GET /search
+  - GET /songs/:id
+  - GET /referents
+  - GET /annotations/:id
+- file: medialab-ai-genius-annotate-web-page.md
+  name: Annotate a public web page with Genius
+  api: Genius API
+  endpoints:
+  - GET /web_pages/lookup
+  - POST /annotations
+  - PUT /annotations/:id
+  - DELETE /annotations/:id
+  scopes:
+  - create_annotation
+  - manage_annotation
+- file: medialab-ai-imgur-upload-and-album.md
+  name: Upload images to Imgur and collect them in an album
+  api: Imgur API
+  endpoints:
+  - POST /3/image
+  - POST /3/album
+  - POST /3/album/{albumHash}/add
+  - GET /3/album/{albumHash}/images
+  - DELETE /3/image/{deleteHash}
+- file: medialab-ai-imgur-search-gallery.md
+  name: Search and read the Imgur public gallery
+  api: Imgur API
+  endpoints:
+  - GET /3/gallery/search/{sort}/{window}/{page}
+  - GET /3/gallery/{section}/{sort}/{window}/{page}
+  - GET /3/gallery/image/{galleryImageHash}
+  - GET /3/gallery/{galleryHash}/comments/{commentSort}
+  - GET /3/tags
+  - GET /3/credits

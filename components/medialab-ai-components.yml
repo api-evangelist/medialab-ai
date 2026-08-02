@@ -1,0 +1,54 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.genius.com/#add-genius-annotations-to-your-own-site
+note: >-
+  Client-side / embeddable surfaces published by MediaLab.AI portfolio brands. Only
+  one is documented in an API reference. This is distinct from the server-side client
+  libraries catalogued in packages/medialab-ai-packages.yml.
+components:
+- family: Genius Annotations
+  brand: Genius
+  name: Genius Web Annotator
+  kind: script-embed
+  loader: '<script src="https://genius.codes"></script>'
+  url: https://genius.codes
+  description: >-
+    A single script tag that makes any page annotatable and displays the Genius
+    annotations that have been created on it. Documented in the Genius API reference
+    as the companion to the annotations/referents endpoints - "In addition to
+    interacting with Genius annotations through the API, it's easy to make any page
+    annotatable and display annotations you've created on it."
+  related_api: Genius API
+  related_resources:
+  - annotation
+  - referent
+  - web_page
+  verified:
+    fetched: '2026-08-01'
+    url: https://genius.codes
+    http_status: 200
+    content_type: application/javascript
+    note: >-
+      Returns a real minified JavaScript bundle that sets
+      window["com.genius.Genius.annotation_enabled"] and triggers a
+      genius:reinjection jQuery event.
+  official: true
+- family: Genius API Docs App
+  brand: Genius
+  name: Interactive docs console
+  kind: hosted-console
+  url: https://docs.genius.com/
+  description: >-
+    The Genius API documentation is itself a Genius OAuth application - "Authorize
+    With Genius" links the reader's own Genius account to the docs page so every
+    documented endpoint can be executed live from the reference ("Try It").
+  related_api: Genius API
+  official: true
+not_found:
+- brand: Imgur
+  finding: >-
+    Imgur's public embed unit is referenced from the help centre rather than the API
+    reference, and help.imgur.com returns 403 to automated probes. No embeddable
+    component is documented in the Imgur API Postman collection, so none is recorded.
+- brand: MediaLab.AI (corporate)
+  finding: No embeddable or client-side components published at medialab.la.

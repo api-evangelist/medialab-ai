@@ -1,0 +1,78 @@
+generated: '2026-08-01'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: medialab.la
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  6 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: forgeglobal.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 19 20:15:48 2026 GMT
+  hsts: true
+  hsts_max_age: 2592000
+- host: docs.genius.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Oct 10 01:40:34 2026 GMT
+  hsts: false
+- host: api.genius.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Oct 10 01:40:34 2026 GMT
+  hsts: false
+- host: genius.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Oct 10 01:40:34 2026 GMT
+  hsts: false
+- host: api.imgur.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Feb 15 23:59:59 2027 GMT
+  hsts: false
+- host: apidocs.imgur.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 13 14:52:36 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_preload: true
+  hsts_include_subdomains: true
+- host: imgur.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Feb 15 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 300
+domains:
+- domain: medialab.la
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: forgeglobal.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+- domain: genius.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+- domain: imgur.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+note: Corporate hosts probed by 0-working/probe-domain-security.py; the Genius and
+  Imgur API/doc hosts were probed manually (same TLS/HSTS/DNS method) because the
+  portfolio brand domains are not reachable from medialab.la in apis.yml.

@@ -1,0 +1,86 @@
+generated: '2026-08-01'
+method: searched
+source: https://apidocs.imgur.com/#rate-limits
+note: >-
+  Captured verbatim from Imgur's published "Rate Limits" documentation. The Genius API
+  publishes no rate-limit documentation and returns no rate-limit headers that are
+  documented, so no Genius entry is recorded.
+rate_limits:
+- api: Imgur API
+  scope: application
+  model: credit-allocation
+  limit_count: 12500
+  limit_period: day
+  limit_unit: requests
+  description: >-
+    Each application can allow approximately 12,500 requests per day. Unless otherwise
+    noted an API call deducts 1 credit from the allocation.
+  headers:
+  - name: X-RateLimit-ClientLimit
+    description: Total credits that can be allocated for the application in a day.
+  - name: X-RateLimit-ClientRemaining
+    description: Total credits remaining for the application in a day.
+  penalty: >-
+    If the daily limit is hit five times in a month, the app will be blocked for the
+    rest of the month.
+  source: https://apidocs.imgur.com/#rate-limits
+- api: Imgur API
+  scope: application
+  model: credit-allocation
+  limit_count: 1250
+  limit_period: day
+  limit_unit: uploads
+  description: >-
+    Each application can allow approximately 1,250 uploads per day. Uploads have a
+    significantly higher computational cost and deduct 10 credits per call.
+  cost_per_call: 10
+  source: https://apidocs.imgur.com/#rate-limits
+- api: Imgur API
+  scope: user
+  keyed_by: IP address, per application
+  model: credit-allocation
+  window: hour
+  description: >-
+    Each user (via their IP address) is limited per application to ensure no single
+    user can spam an application. Exceeding it stops the user from requesting more
+    data for an hour.
+  headers:
+  - name: X-RateLimit-UserLimit
+    description: Total credits that can be allocated.
+  - name: X-RateLimit-UserRemaining
+    description: Total credits available.
+  - name: X-RateLimit-UserReset
+    description: Timestamp (unix epoch) for when the credits will be reset.
+  source: https://apidocs.imgur.com/#rate-limits
+- api: Imgur API
+  scope: ip
+  method: POST
+  limit_count: 1250
+  limit_period: hour
+  limit_unit: POST requests
+  description: >-
+    Use of the API is also limited by the number of POST requests an IP can make
+    across all endpoints - 1,250 POST requests per hour. Commercial usage is not
+    impacted by this limit.
+  headers:
+  - name: X-Post-Rate-Limit-Limit
+    description: Total POST credits that are allocated.
+  - name: X-Post-Rate-Limit-Remaining
+    description: Total POST credits available.
+  - name: X-Post-Rate-Limit-Reset
+    description: Time in seconds until the POST rate limit is reset.
+  source: https://apidocs.imgur.com/#rate-limits
+exemptions:
+- scope: oauth
+  description: >-
+    All OAuth calls, such as refreshing tokens or authorizing users, do not deduct
+    any credits.
+  source: https://apidocs.imgur.com/#rate-limits
+status_endpoint:
+  api: Imgur API
+  operation: GET https://api.imgur.com/3/credits
+  description: Check the current rate limit status for the application.
+  source: https://apidocs.imgur.com/#rate-limits
+not_documented:
+- api: Genius API
+  finding: No published rate limits, quotas or rate-limit response headers.

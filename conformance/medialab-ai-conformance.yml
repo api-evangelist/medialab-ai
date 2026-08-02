@@ -1,0 +1,140 @@
+generated: '2026-08-01'
+method: derived
+source:
+- https://docs.genius.com/
+- https://apidocs.imgur.com/
+- well-known/medialab-ai-genius-security.txt
+- authentication/medialab-ai-authentication.yml
+- conventions/medialab-ai-conventions.yml
+note: >-
+  Cross-cutting standards conformance derived from each brand's published API
+  documentation and from the artifacts already in this repo. MediaLab.AI publishes no
+  trust centre and no certification claims (SOC 2, ISO 27001, PCI DSS, HIPAA,
+  FedRAMP) at medialab.la, genius.com or imgur.com, so no Compliance pointer is
+  emitted in apis.yml.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Both APIs require OAuth 2.0. Genius documents authorization-code and implicit
+    flows at api.genius.com/oauth/authorize and /oauth/token; Imgur documents the
+    implicit flow plus refresh_token grant at api.imgur.com/oauth2/authorize and
+    /oauth2/token.
+  applies_to:
+  - Genius API
+  - Imgur API
+- id: oauth2-authorization-code
+  conforms: true
+  evidence: Genius documents response_type=code exchanged for a token at /oauth/token.
+  applies_to:
+  - Genius API
+- id: oauth2-implicit
+  conforms: true
+  caveat: >-
+    Imgur documents token (implicit) as the ONLY supported response_type and has
+    deprecated code and pin - the implicit flow is discouraged by OAuth 2.0 Security
+    Best Current Practice (RFC 9700). Genius supports it but warns against it.
+  evidence: https://apidocs.imgur.com/#the-response_type-parameter
+  applies_to:
+  - Imgur API
+  - Genius API
+- id: oauth2-scopes
+  conforms: partial
+  evidence: >-
+    Genius publishes four scopes (me, create_annotation, manage_annotation, vote).
+    Imgur's authorization request accepts no scope parameter at all.
+  applies_to:
+  - Genius API
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 on genius.com and an HTML shell on imgur.com.
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: false
+  evidence: /.well-known/oauth-protected-resource returns 404 on genius.com and an HTML shell on imgur.com.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on genius.com and an HTML shell on imgur.com.
+- id: rfc9116-security-txt
+  conforms: partial
+  evidence: >-
+    genius.com serves a valid RFC 9116 security.txt with Contact, Policy and Expires
+    fields pointing at a Bugcrowd VDP. No other MediaLab.AI property publishes one.
+  applies_to:
+  - Genius
+- id: rfc8594-sunset-header
+  conforms: true
+  evidence: >-
+    "The endpoint will have a Sunset header (Sunset HTTP Header) added to indicate the
+    last date the endpoint should be relied upon." - Imgur API Deprecation policy.
+  applies_to:
+  - Imgur API
+- id: rfc7232-conditional-requests
+  conforms: true
+  evidence: >-
+    Imgur supports ETag response headers and If-None-Match request headers, returning
+    304 Not Modified when the representation is unchanged.
+  applies_to:
+  - Imgur API
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Neither API returns application/problem+json. Genius uses a meta.status/meta.message
+    envelope; Imgur uses a data/status/success envelope.
+- id: rest
+  conforms: true
+  evidence: '"The Imgur API is a RESTful API based on HTTP requests and JSON responses."'
+  applies_to:
+  - Imgur API
+  - Genius API
+- id: pagination
+  conforms: true
+  evidence: >-
+    Genius uses per_page + page; Imgur uses perPage (default 50, max 100) + page
+    (default 0), with documented exceptions on /gallery and /album/{id}/images.
+  applies_to:
+  - Genius API
+  - Imgur API
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key header, parameter or replay contract documented by either API.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger definition found. Probed /openapi.json, /openapi.yaml,
+    /swagger.json, /v1/openapi.json, /api-docs, /redoc on api.genius.com,
+    docs.genius.com, genius.com, api.imgur.com, apidocs.imgur.com and imgur.com -
+    every 200 was an HTML SPA shell.
+- id: postman-collection-v2
+  conforms: true
+  evidence: >-
+    Imgur publishes its entire API reference as a public Postman collection
+    (publishedId 6YsWHMa, 85 requests) which is the documented source of truth -
+    "Postman ... is the source of truth for this documentation."
+  applies_to:
+  - Imgur API
+  artifact: postman/medialab-ai-imgur-api.postman_collection.json
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface is published by either API.
+- id: graphql
+  conforms: false
+  evidence: No /graphql surface found on any host; every 200 was an HTML SPA shell.
+- id: mcp
+  conforms: false
+  evidence: No official MCP server published for MediaLab.AI, Genius or Imgur.
+- id: a2a
+  conforms: false
+  evidence: >-
+    No A2A Agent Card at /.well-known/agent-card.json or /.well-known/agent.json on
+    any host; every 200 observed was an HTML SPA catch-all and was rejected.
+- id: iab-vmap
+  conforms: unverified
+  evidence: >-
+    MediaLab's GitHub organization publishes github.com/medialab-ai/vmap, "XML VMAP
+    wrapper structs" in Go, consistent with IAB VMAP ad-break scheduling in the
+    Assembly Exchange ad stack. This is internal tooling, not a public API contract.
+certifications: []
+certifications_note: >-
+  No certification or compliance program (SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP,
+  CSA STAR) is published on medialab.la, genius.com or imgur.com. probe-security-programs.py
+  returned trust=none. No trust-center artifact is written.

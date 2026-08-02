@@ -1,0 +1,84 @@
+generated: '2026-08-01'
+method: searched
+source: >-
+  PyPI, npm, RubyGems, github.com/Imgur, github.com/Genius, github.com/medialab-ai,
+  and the Imgur API Postman documentation "Example code" section
+summary: >-
+  MediaLab.AI ships no corporate SDK. Across the portfolio exactly one first-party
+  client library was found: imgurpython, published by Imgur Inc. and described by
+  Imgur's own API documentation as the "Official Python library" - it is now marked
+  deprecated in the Imgur GitHub org. Genius publishes no official client library in
+  any registry; every Genius library found on npm/PyPI/RubyGems is community-authored.
+packages:
+- language: python
+  registry: pypi
+  name: imgurpython
+  version: 1.1.7
+  url: https://pypi.org/project/imgurpython/
+  repository: https://github.com/Imgur/imgurpython
+  install: pip install imgurpython
+  official: true
+  brand: Imgur
+  deprecated: true
+  evidence: >-
+    PyPI author field is "Imgur Inc."; summary is "Official Imgur python library with
+    OAuth2 and samples"; repo github.com/Imgur/imgurpython is described in the Imgur
+    GitHub organization as "Official Imgur python client library (deprecated)".
+community_packages:
+- language: javascript
+  registry: npm
+  name: imgur
+  url: https://www.npmjs.com/package/imgur
+  official: false
+  brand: Imgur
+- language: javascript
+  registry: npm
+  name: genius-lyrics-api
+  url: https://www.npmjs.com/package/genius-lyrics-api
+  official: false
+  brand: Genius
+- language: python
+  registry: pypi
+  name: lyricsgenius
+  url: https://pypi.org/project/lyricsgenius/
+  official: false
+  brand: Genius
+- language: ruby
+  registry: rubygems
+  name: genius
+  url: https://rubygems.org/gems/genius
+  official: false
+  brand: Genius
+first_party_examples:
+- name: Android Upload Example
+  brand: Imgur
+  source: Imgur API documentation "Example code" section
+- name: Example HTML5/JavaScript app (Javascript OAuth)
+  brand: Imgur
+  source: Imgur API documentation "Example code" section
+- name: Example Objective C library
+  brand: Imgur
+  source: Imgur API documentation "Example code" section
+github_organizations:
+- org: https://github.com/medialab-ai
+  name: MediaLab
+  public_repos: 4
+  note: >-
+    Infrastructure/tooling only (docker-protoc, github-tag-action, vmap Go structs for
+    the IAB VMAP ad standard, a turnilo fork). No API client libraries.
+- org: https://github.com/Imgur
+  name: Imgur.com
+  public_repos: 16
+- org: https://github.com/Genius
+  public_repos: 111
+registries_probed:
+- npm
+- pypi
+- rubygems
+- github
+not_found:
+- registry: maven-central
+- registry: nuget
+- registry: pkg.go.dev
+- registry: packagist
+- registry: crates.io

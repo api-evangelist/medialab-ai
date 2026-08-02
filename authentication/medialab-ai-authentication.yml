@@ -1,0 +1,123 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.genius.com/#authentication
+docs:
+- https://docs.genius.com/#authentication
+- https://apidocs.imgur.com/#authorization-and-oauth
+note: >-
+  Derived from the providers' published authentication documentation, not from an
+  OpenAPI securitySchemes block - neither Genius nor Imgur publishes an OpenAPI or
+  Swagger definition, so 0-working/derive-authentication.py had no spec to read.
+summary:
+  types:
+  - oauth2
+  - http
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+  - implicit
+  - refreshToken
+  - clientCredentials-style
+schemes:
+- name: GeniusOAuth2
+  api: Genius API
+  type: oauth2
+  source: https://docs.genius.com/#authentication
+  transport_required: HTTPS
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.genius.com/oauth/authorize
+    tokenUrl: https://api.genius.com/oauth/token
+    response_type: code
+    grant_type: authorization_code
+    scopes_documented: 4
+  - flow: implicit
+    authorizationUrl: https://api.genius.com/oauth/authorize
+    response_type: token
+    note: >-
+      Genius documents this browser-only flow but explicitly warns against it -
+      "This mechanism is much less secure than the full code exchange process and
+      should only be used by applications without a server or native platform".
+  token_presentation:
+  - location: header
+    form: 'Authorization: Bearer ACCESS_TOKEN'
+    preferred: true
+  - location: query
+    parameter: access_token
+    preferred: false
+    note: supported for GET requests
+  - location: body
+    parameter: access_token
+    preferred: false
+    note: supported as a POST body element
+- name: GeniusClientAccessToken
+  api: Genius API
+  type: http
+  scheme: bearer
+  source: https://docs.genius.com/#access-for-apps-without-users
+  description: >-
+    A per-client access token generated from the Genius API Client management page.
+    Valid only for read-only endpoints that are not restricted by a required scope -
+    it cannot create or manage annotations, vote, or read /account.
+  scoped: false
+- name: ImgurClientID
+  api: Imgur API
+  type: apiKey
+  in: header
+  name_in_request: Authorization
+  format: 'Authorization: Client-ID YOUR_CLIENT_ID'
+  source: https://apidocs.imgur.com/#authorization-and-oauth
+  description: >-
+    Application-level credential for public read-only and anonymous resources -
+    reading image info, looking up user comments, anonymous image upload, anonymous
+    album creation. Identifies the calling application; grants no account access.
+- name: ImgurOAuth2
+  api: Imgur API
+  type: oauth2
+  source: https://apidocs.imgur.com/#authorization-and-oauth
+  transport_required: HTTPS
+  registration_endpoint: https://api.imgur.com/oauth2/addclient
+  token_introspection: https://api.imgur.com/oauth2/secret
+  flows:
+  - flow: implicit
+    authorizationUrl: https://api.imgur.com/oauth2/authorize
+    response_type: token
+    note: >-
+      Imgur documents token as the only supported response_type - "Only token should
+      be used, as the other methods have been deprecated." The code and pin response
+      types are deprecated.
+  - flow: refreshToken
+    tokenUrl: https://api.imgur.com/oauth2/token
+    grant_type: refresh_token
+    parameters:
+    - refresh_token
+    - client_id
+    - client_secret
+    - grant_type
+  deprecated_flows:
+  - response_type: code
+  - response_type: pin
+  token_lifetimes:
+    access_token: 1 month (documented); expires_in returned as 3600 in the example response
+    refresh_token: does not expire
+  token_presentation:
+  - location: header
+    form: 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+    preferred: true
+  scopes: none
+  scopes_note: >-
+    Imgur's OAuth 2.0 implementation documents no scope parameter - an authorized
+    access token carries full account access for the granting user.
+commercial_auth:
+- api: Imgur API
+  requirement: >-
+    Commercial use must be registered with RapidAPI. The base URL changes to
+    https://imgur-apiv3.p.rapidapi.com/ and an X-Mashape-Key request header carrying
+    the RapidAPI key must be set in addition to the Imgur credential.
+  source: https://apidocs.imgur.com/#commercial-usage
+- api: Genius API
+  requirement: >-
+    "Commercial use of the Genius API is not allowed without a license." Licensing is
+    arranged by contacting api-sales@genius.com.
+  source: https://docs.genius.com/

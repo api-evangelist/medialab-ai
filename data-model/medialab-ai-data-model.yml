@@ -1,0 +1,235 @@
+generated: '2026-08-01'
+method: derived
+source:
+- postman/medialab-ai-imgur-api.postman_collection.json
+- https://docs.genius.com/#resources
+note: >-
+  Entity graph derived from the resource sections of each brand's published API
+  reference and from the path/identifier variables in Imgur's public Postman
+  collection. Neither brand publishes an OpenAPI definition, so relationships are
+  derived from documented resource descriptions and identifier reference fields
+  rather than from schema $ref links. Field-level schemas are not published by either
+  brand and are NOT reconstructed here.
+graphs:
+- api: Genius API
+  entities:
+  - name: annotation
+    identifier: id
+    description: >-
+      A piece of content about a part of a document. Annotation data returned from the
+      API includes both the substance of the annotation and the information needed to
+      display it in its original context.
+    operations:
+    - GET /annotations/:id
+    - POST /annotations
+    - PUT /annotations/:id
+    - DELETE /annotations/:id
+    - PUT /annotations/:id/upvote
+    - PUT /annotations/:id/downvote
+    - PUT /annotations/:id/unvote
+  - name: referent
+    identifier: id
+    description: >-
+      The section of a piece of content to which annotations are attached. Each
+      referent is associated with a web page or a song and may have one or more
+      annotations.
+    operations:
+    - GET /referents
+  - name: song
+    identifier: id
+    description: >-
+      A document hosted on Genius, usually music lyrics. Song data includes details
+      about the document and information about all referents attached to it.
+    operations:
+    - GET /songs/:id
+  - name: artist
+    identifier: id
+    description: >-
+      How Genius represents the creator of one or more songs - usually a musician or
+      group of musicians.
+    operations:
+    - GET /artists/:id
+    - GET /artists/:id/songs
+  - name: web_page
+    identifier: id
+    description: >-
+      A single, publicly accessible page to which annotations may be attached. Web
+      pages map 1-to-1 with unique, canonical URLs. Data is only available for pages
+      that already have at least one annotation.
+    lookup_keys:
+    - raw_annotatable_url
+    - canonical_url
+    - og_url
+    operations:
+    - GET /web_pages/lookup
+  - name: account
+    identifier: id
+    description: General contact information and Genius-specific details about a user.
+    operations:
+    - GET /account
+  relationships:
+  - from: annotation
+    to: referent
+    kind: belongs_to
+    via: referent
+    evidence: >-
+      "When a new annotation is created either a referent is created with it or that
+      annotation is attached to an existing referent."
+  - from: referent
+    to: annotation
+    kind: has_many
+    evidence: '"may have one or more annotations"'
+  - from: referent
+    to: song
+    kind: belongs_to
+    via: song_id
+    evidence: GET /referents accepts song_id
+  - from: referent
+    to: web_page
+    kind: belongs_to
+    via: web_page_id
+    evidence: GET /referents accepts web_page_id
+    note: You may pass only one of song_id and web_page_id, not both.
+  - from: referent
+    to: account
+    kind: belongs_to
+    via: created_by_id
+    evidence: GET /referents accepts created_by_id ("ID of a user to get referents for")
+  - from: song
+    to: artist
+    kind: belongs_to
+    evidence: GET /artists/:id/songs returns the documents (songs) for the artist specified
+  - from: artist
+    to: song
+    kind: has_many
+    via: /artists/:id/songs
+  - from: song
+    to: referent
+    kind: has_many
+    evidence: '"Data for a song includes ... information about all the referents that are attached to it"'
+- api: Imgur API
+  entities:
+  - name: account
+    identifiers:
+    - username
+    - me
+    operations_count: 36
+    sub_resources:
+    - block
+    - images
+    - albums
+    - comments
+    - favorites
+    - gallery_favorites
+    - submissions
+    - settings
+    - avatar
+    - available_avatars
+    - notifications/replies
+    - follow/tag
+  - name: image
+    identifiers:
+    - imageHash
+    - deleteHash
+    operations_count: 6
+    operations:
+    - GET /3/image/{imageHash}
+    - POST /3/image
+    - DELETE /3/image/{imageHash}
+    - POST /3/image/{imageHash}/favorite
+  - name: album
+    identifiers:
+    - albumHash
+    - albumDeleteHash
+    operations_count: 14
+  - name: comment
+    identifier: commentId
+    operations_count: 7
+  - name: gallery
+    identifier: galleryHash
+    operations_count: 21
+    sub_resources:
+    - tags
+    - votes
+    - comments
+    - search
+    - r/{subreddit}
+    - t/{tagName}
+  - name: tag
+    identifier: tagName
+    operations:
+    - GET /3/tags
+    - GET /3/gallery/tag_info/{tagName}
+    - GET /3/gallery/t/{tagName}/{sort}/{window}/{page}
+  - name: feed
+    operations_count: 1
+  relationships:
+  - from: album
+    to: image
+    kind: has_many
+    via: albumHash
+    evidence: GET /3/album/{albumHash}/images, POST /3/album/{albumHash}/add, POST /3/album/{albumHash}/remove_images
+  - from: image
+    to: album
+    kind: belongs_to
+    via: albumHash
+    evidence: GET /3/album/{albumHash}/image/{imageHash}
+  - from: account
+    to: image
+    kind: has_many
+    via: username
+    evidence: GET /3/account/{username}/images/{page}
+  - from: account
+    to: album
+    kind: has_many
+    via: username
+    evidence: GET /3/account/{username}/albums/{page}
+  - from: account
+    to: comment
+    kind: has_many
+    via: username
+    evidence: GET /3/account/{username}/comments/{commentSort}/{page}
+  - from: comment
+    to: comment
+    kind: has_many
+    via: commentId
+    relation: replies
+    evidence: GET /3/comment/{commentId}/replies, POST /3/comment/{commentId}
+  - from: gallery
+    to: image
+    kind: has_one
+    via: galleryImageHash
+    evidence: GET /3/gallery/image/{galleryImageHash}
+  - from: gallery
+    to: album
+    kind: has_one
+    via: galleryHash
+    evidence: GET /3/gallery/album/{galleryHash}
+  - from: gallery
+    to: comment
+    kind: has_many
+    via: galleryHash
+    evidence: GET /3/gallery/{galleryHash}/comments/{commentSort}
+  - from: gallery
+    to: tag
+    kind: has_many
+    via: galleryHash
+    evidence: GET /3/gallery/{galleryHash}/tags, POST /3/gallery/tags/{galleryHash}
+  - from: account
+    to: tag
+    kind: has_many
+    relation: follows
+    evidence: POST /3/account/me/follow/tag/{tagName}, DELETE /3/account/me/follow/tag/{tagName}
+  - from: account
+    to: account
+    kind: has_many
+    relation: blocks
+    evidence: GET /3/account/me/block, POST /account/v1/{username}/block
+identifier_conventions:
+- api: Imgur API
+  note: >-
+    Imgur uses opaque alphanumeric hashes rather than prefixed IDs. Anonymous
+    resources carry a second identifier - deleteHash / albumDeleteHash - which is the
+    only credential that can mutate or delete a resource not tied to an account.
+- api: Genius API
+  note: Genius uses plain integer IDs on every resource.

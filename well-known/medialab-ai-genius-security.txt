@@ -1,0 +1,4 @@
+Contact: https://bugcrowd.com/engagements/Genius-VDP
+Policy: https://bugcrowd.com/engagements/Genius-VDP
+Expires: 2026-09-01T17:00:55Z
+# If there's been no response after 2 weeks to the initial filing, please email security@genius.com to escalate your issue.

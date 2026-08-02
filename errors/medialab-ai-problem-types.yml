@@ -1,0 +1,81 @@
+generated: '2026-08-01'
+method: searched
+source:
+- https://docs.genius.com/#errors
+- https://apidocs.imgur.com/
+format: proprietary
+format_note: >-
+  Neither MediaLab.AI portfolio API uses RFC 9457 (application/problem+json). Both
+  return their normal JSON envelope with an HTTP-status field echoed into the body -
+  Genius via meta.status/meta.message, Imgur via status/success/data. There is no
+  machine-readable error type URI, no error code registry and no remediation field
+  published by either brand.
+envelopes:
+- api: Genius API
+  content_type: application/json
+  shape: '{ "meta": { "status": <int>, "message": "<string>" } }'
+  status_field: meta.status
+  message_field: meta.message
+  rule: >-
+    "If a request fails or errors (i.e. the status value is 4xx or 5xx), the meta
+    field will also have a message value that is a string with details about the error."
+  example:
+    request: GET https://api.genius.com/apples
+    response: '{ "meta": { "status": 404, "message": "Not found" } }'
+  source: https://docs.genius.com/#errors
+- api: Imgur API
+  content_type: application/json
+  shape: '{ "data": { ... }, "status": <int>, "success": false }'
+  status_field: status
+  success_field: success
+  source: https://apidocs.imgur.com/#responses
+problems:
+- api: Genius API
+  status: 404
+  title: Not found
+  detail_field: meta.message
+  evidence: >-
+    Documented verbatim in the Genius "Errors" section as the response to
+    GET https://api.genius.com/apples.
+  source: https://docs.genius.com/#errors
+- api: Imgur API
+  status: 304
+  title: Not Modified
+  detail: >-
+    Returned when an If-None-Match request header carries an ETag that still matches
+    the current representation. No body is returned. Still counts toward rate limits.
+  source: https://apidocs.imgur.com/#performance-tips
+oauth_errors:
+- api: Imgur API
+  channel: redirect query string or URL fragment
+  parameter: error
+  documented_values:
+  - value: access_denied
+    meaning: The user did not grant the application the permissions it requested.
+  example: https://example.com/oauthcallback?error=access_denied
+  note: >-
+    If the state parameter was included in the authorization request it is also
+    present in the error response.
+  source: https://apidocs.imgur.com/#error-response
+rate_limit_errors:
+- api: Imgur API
+  condition: application daily credit allocation exhausted
+  consequence: >-
+    Requests are refused. If the daily limit is hit five times in a month the
+    application is blocked for the remainder of the month.
+  signal_headers:
+  - X-RateLimit-ClientRemaining
+  - X-RateLimit-UserRemaining
+  ref: rate-limits/medialab-ai-rate-limits.yml
+  source: https://apidocs.imgur.com/#rate-limits
+- api: Imgur API
+  condition: per-IP user rate limit exceeded
+  consequence: The user is stopped from requesting more data for one hour.
+  source: https://apidocs.imgur.com/#rate-limits
+gaps:
+- No published error-code registry for either API.
+- No RFC 9457 problem+json media type on either API.
+- No documented remediation guidance per error.
+- >-
+  Genius documents only one concrete error example (404 Not found); all other 4xx/5xx
+  behaviour is described generically as "the meta field will also have a message value".

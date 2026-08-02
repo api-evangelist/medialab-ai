@@ -1,0 +1,1495 @@
+generated: '2026-08-01'
+method: derived
+source: postman/medialab-ai-imgur-api.postman_collection.json
+api: Imgur API
+note: Example responses saved verbatim by Imgur inside its own public Postman collection (publishedId 6YsWHMa),
+  which Imgur documents as "the source of truth for this documentation". Extracted unmodified. The Genius API publishes
+  no saved response examples in a machine-readable form.
+count: 16
+examples:
+- group: Account
+  operation: Account Base
+  method: GET
+  url: https://api.imgur.com/3/account/{{username}}
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      id: 48437714
+      url: ghostinspector
+      bio: null
+      avatar: null
+      reputation: 0
+      reputation_name: Neutral
+      created: 1481839668
+      pro_expiration: false
+      user_follow:
+        status: false
+    success: true
+    status: 200
+- group: Account
+  operation: Account Block Status
+  method: GET
+  url: https://api.imgur.com/account/v1/{{username}}/block
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      id: 48437714
+      url: ghostinspector
+      bio: null
+      avatar: null
+      reputation: 0
+      reputation_name: Neutral
+      created: 1481839668
+      pro_expiration: false
+      user_follow:
+        status: false
+    success: true
+    status: 200
+- group: Account
+  operation: Account Blocks
+  method: GET
+  url: https://api.imgur.com/3/account/me/block
+  example_name: Account Blocks
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      items:
+      - url: officialimguraffe
+      next: null
+    success: true
+    status: 200
+- group: Account
+  operation: Account Blocks
+  method: GET
+  url: https://api.imgur.com/3/account/me/block
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      id: 48437714
+      url: ghostinspector
+      bio: null
+      avatar: null
+      reputation: 0
+      reputation_name: Neutral
+      created: 1481839668
+      pro_expiration: false
+      user_follow:
+        status: false
+    success: true
+    status: 200
+- group: Account
+  operation: Account Block Create
+  method: POST
+  url: https://api.imgur.com/account/v1/{{username}}/block
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      id: 48437714
+      url: ghostinspector
+      bio: null
+      avatar: null
+      reputation: 0
+      reputation_name: Neutral
+      created: 1481839668
+      pro_expiration: false
+      user_follow:
+        status: false
+    success: true
+    status: 200
+- group: Account
+  operation: Account Block Delete
+  method: DELETE
+  url: https://api.imgur.com/account/v1/{{username}}/block
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      id: 48437714
+      url: ghostinspector
+      bio: null
+      avatar: null
+      reputation: 0
+      reputation_name: Neutral
+      created: 1481839668
+      pro_expiration: false
+      user_follow:
+        status: false
+    success: true
+    status: 200
+- group: Account
+  operation: Account Submissions
+  method: GET
+  url: https://api.imgur.com/3/account/{{username}}/submissions/{{page}}
+  example_name: Account Submissions
+  status: 200
+  status_text: OK
+  media_type: json
+  body: ''
+- group: Account
+  operation: Follow Tag
+  method: POST
+  url: https://api.imgur.com/3/account/me/follow/tag/{{tagName}}
+  example_name: 'Follow Tag: Tag Does Not Exist'
+  status: 404
+  status_text: Not Found
+  media_type: json
+  body:
+    data:
+      error: Tag does not exist
+      request: /3/account/me/follow/tag/{{tagName}}
+      method: POST
+    success: false
+    status: 404
+- group: Account
+  operation: Follow Tag
+  method: POST
+  url: https://api.imgur.com/3/account/me/follow/tag/{{tagName}}
+  example_name: 'Follow Tag: Success'
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data: true
+    success: true
+    status: 200
+- group: Account
+  operation: Unfollow tag
+  method: DELETE
+  url: https://api.imgur.com/3/account/me/follow/tag/{{tagName}}
+  example_name: 'Unfollow Tag: Tag Does Not Exist'
+  status: 404
+  status_text: Not Found
+  media_type: json
+  body:
+    data:
+      error: Tag does not exist
+      request: /3/account/me/follow/tag/{{tagName}}
+      method: DELETE
+    success: false
+    status: 404
+- group: Account
+  operation: Unfollow tag
+  method: DELETE
+  url: https://api.imgur.com/3/account/me/follow/tag/{{tagName}}
+  example_name: 'Unfollow Tag: Not Following'
+  status: 409
+  status_text: Conflict
+  media_type: json
+  body:
+    data:
+      error: Not following tag
+      request: /3/account/me/follow/tag/funny
+      method: DELETE
+    success: false
+    status: 409
+- group: Account
+  operation: Unfollow tag
+  method: DELETE
+  url: https://api.imgur.com/3/account/me/follow/tag/{{tagName}}
+  example_name: 'Unfollow Tag: Success'
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data: true
+    success: true
+    status: 200
+- group: Gallery
+  operation: Subreddit Galleries
+  method: GET
+  url: https://api.imgur.com/3/gallery/r/{{subreddit}}/{{sort}}/{{window}}/{{page}}
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+    - id: QJa0R6q
+      title: Shiprock - New Mexico [OC][1080x644]
+      description: null
+      datetime: 1493611803
+      type: image/jpeg
+      animated: false
+      width: 1080
+      height: 644
+      size: 86174
+      views: 149622
+      bandwidth: 12893526228
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/QJa0R6q.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 148994
+      is_album: false
+    - id: RodyQ0k
+      title: Painters Bluff, overlooking a flood stage white river. North Central Ark. [10864x3728] [OC]
+      description: null
+      datetime: 1493641803
+      type: image/jpeg
+      animated: false
+      width: 10864
+      height: 3728
+      size: 4884667
+      views: 20336
+      bandwidth: 99334588112
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/RodyQ0k.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 20291
+      is_album: false
+    - id: weKftEq
+      title: Cape Flattery, WA is quite flattering indeed. [oc] [2048x1367]
+      description: null
+      datetime: 1493611803
+      type: image/jpeg
+      animated: false
+      width: 1367
+      height: 2048
+      size: 460562
+      views: 12854
+      bandwidth: 5920063948
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/weKftEq.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 12794
+      is_album: false
+    - id: EgF9TQh
+      title: Hyalite Canyon, Montana [OC] [4032x2268]
+      description: null
+      datetime: 1493610603
+      type: image/jpeg
+      animated: false
+      width: 4032
+      height: 2268
+      size: 4082007
+      views: 10724
+      bandwidth: 43775443068
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/EgF9TQh.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 10689
+      is_album: false
+    - id: EEo6VgY
+      title: Russian Wilderness, Klamath National Forest [OC] [15045 x 5613]
+      description: null
+      datetime: 1493622003
+      type: image/jpeg
+      animated: false
+      width: 15045
+      height: 5613
+      size: 2901059
+      views: 8271
+      bandwidth: 23994658989
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/EEo6VgY.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 8246
+      is_album: false
+    - id: lY1lDJO
+      title: Fiordland National Park, New Zealand [OC] [4032×2268]
+      description: null
+      datetime: 1493626279
+      type: image/jpeg
+      animated: false
+      width: 3226
+      height: 1814
+      size: 875971
+      views: 8067
+      bandwidth: 7066458057
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/lY1lDJO.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 7936
+      is_album: false
+    - id: oG6w6F8
+      title: Posted this in r/pics first, but maybe you guys appreciate it too! [3821x2147]
+      description: null
+      datetime: 1493638203
+      type: image/jpeg
+      animated: false
+      width: 3821
+      height: 2147
+      size: 2520309
+      views: 6374
+      bandwidth: 16064449566
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/oG6w6F8.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 6365
+      is_album: false
+    - id: O1IBlpc
+      title: Milky Way rise over the Atlantic in Avon NC [5679x3791]
+      description: null
+      datetime: 1493640003
+      type: image/jpeg
+      animated: false
+      width: 5679
+      height: 3791
+      size: 2675943
+      views: 5105
+      bandwidth: 13660689015
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/O1IBlpc.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 4918
+      is_album: false
+    - id: pVQZLnk
+      title: Up high in the Willamette National Forest facing Cougar Creek, OR [OC] [2160x769]
+      description: null
+      datetime: 1493626203
+      type: image/jpeg
+      animated: false
+      width: 2048
+      height: 729
+      size: 72458
+      views: 4522
+      bandwidth: 327655076
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/pVQZLnk.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 4494
+      is_album: false
+    - id: WNB9Cbm
+      title: Poisoned Glen, Donegal, Ireland [OC][1600x1200]
+      description: null
+      datetime: 1493629802
+      type: image/jpeg
+      animated: false
+      width: 1600
+      height: 1200
+      size: 1030403
+      views: 4027
+      bandwidth: 4149432881
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/WNB9Cbm.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 3985
+      is_album: false
+    - id: DNZH3Z6
+      title: Sheyenne National Grasslands, North Dakota [OC] [6016x4000]
+      description: null
+      datetime: 1493654403
+      type: image/jpeg
+      animated: false
+      width: 6016
+      height: 4000
+      size: 3124634
+      views: 3544
+      bandwidth: 11073702896
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/DNZH3Z6.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 3395
+      is_album: false
+    - id: Op1Mm35
+      title: A long day of driving and grey skies along Michigan's west coast and Upper Peninsula landed us in front
+        a crimson sunset over Lake Superior, Silver City, MI [OC]
+      description: null
+      datetime: 1493640624
+      type: image/jpeg
+      animated: false
+      width: 4032
+      height: 3024
+      size: 1850072
+      views: 3186
+      bandwidth: 5894329392
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/Op1Mm35.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 3178
+      is_album: false
+    - id: UvZxdQc
+      title: Blausee Kandersteg, Switzerland [3840x2160]
+      description: null
+      datetime: 1493629203
+      type: image/jpeg
+      animated: false
+      width: 3840
+      height: 2160
+      size: 2729072
+      views: 3173
+      bandwidth: 8659345456
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/UvZxdQc.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 3132
+      is_album: false
+    - id: tQBGTi2
+      title: Bosco di Ficuzza @ Sicilia, Italia [OC] [5312x2988]
+      description: null
+      datetime: 1493646604
+      type: image/jpeg
+      animated: false
+      width: 5312
+      height: 2988
+      size: 2101308
+      views: 2658
+      bandwidth: 5585276664
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/tQBGTi2.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 2610
+      is_album: false
+    - id: H1Gtlsd
+      title: Mount Fitz Roy, Argentina. [1920x1200]
+      description: null
+      datetime: 1493640003
+      type: image/jpeg
+      animated: false
+      width: 1920
+      height: 1200
+      size: 574354
+      views: 2443
+      bandwidth: 1403146822
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/H1Gtlsd.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 2443
+      is_album: false
+    - id: mn0Mgjn
+      title: Who Knew Bangladesh Was Beautiful? [2500x1875][OC]
+      description: null
+      datetime: 1493608803
+      type: image/jpeg
+      animated: false
+      width: 2500
+      height: 1874
+      size: 2152428
+      views: 2139
+      bandwidth: 4604043492
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/mn0Mgjn.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 2135
+      is_album: false
+    - id: fjRgUXU
+      title: Wyoming's Beautiful Red Hillsides Covered in Snow[1600x1064] [OC]
+      description: View from Wyoming 28 NNW towards Lander, WY and the Wind River Reservation
+      datetime: 1493599803
+      type: image/jpeg
+      animated: false
+      width: 1600
+      height: 1064
+      size: 413390
+      views: 1841
+      bandwidth: 761050990
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/fjRgUXU.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 1830
+      is_album: false
+    - id: AtGAnlL
+      title: Nauyaca waterfalls, Dominical, Puntarenas, Costa Rica [OC] [4032x3024]
+      description: null
+      datetime: 1493662202
+      type: image/jpeg
+      animated: false
+      width: 1512
+      height: 2016
+      size: 807179
+      views: 2013
+      bandwidth: 1624851327
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/AtGAnlL.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 1801
+      is_album: false
+    - id: G0nc9Cw
+      title: Swiss forest [5312x2988]
+      description: null
+      datetime: 1493628603
+      type: image/jpeg
+      animated: false
+      width: 2125
+      height: 1195
+      size: 822524
+      views: 1640
+      bandwidth: 1348939360
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/G0nc9Cw.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 1640
+      is_album: false
+    - id: rWSUNa4
+      title: Such a hard walk to get here at 4600m, but worth it! Lagoon 69, Peru [OC] [3264x1836]
+      description: '4600m altitude, killer hike. #Earthporn'
+      datetime: 1493671803
+      type: image/jpeg
+      animated: false
+      width: 3264
+      height: 1836
+      size: 1000847
+      views: 1864
+      bandwidth: 1865578808
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/rWSUNa4.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 1534
+      is_album: false
+    - id: nRb0mHU
+      title: Paro Valley, Bhutan [2500x650][OC]
+      description: null
+      datetime: 1493609402
+      type: image/jpeg
+      animated: false
+      width: 2500
+      height: 650
+      size: 813010
+      views: 1506
+      bandwidth: 1224393060
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/nRb0mHU.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 1505
+      is_album: false
+    - id: KhEVbFu
+      title: Went to Åre, Sweden, for some After Ski and took this whilst drunk (4032x2046 )
+      description: null
+      datetime: 1493670002
+      type: image/jpeg
+      animated: false
+      width: 4032
+      height: 2046
+      size: 647324
+      views: 1100
+      bandwidth: 712056400
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/KhEVbFu.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 873
+      is_album: false
+    - id: Yo82Voc
+      title: Zhangjiajie National Park, China [1920x1200]
+      description: null
+      datetime: 1493593203
+      type: image/jpeg
+      animated: false
+      width: 1920
+      height: 1200
+      size: 995801
+      views: 406939
+      bandwidth: 405230263139
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/Yo82Voc.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 174
+      is_album: false
+    - id: XnIjxzp
+      title: Pic from this weekends storms in south eastern Illinois
+      description: null
+      datetime: 1493647826
+      type: image/jpeg
+      animated: false
+      width: 3264
+      height: 1836
+      size: 844596
+      views: 13
+      bandwidth: 10979748
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/XnIjxzp.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 13
+      is_album: false
+    - id: uMA4I7J
+      title: Grand Canyon from Nankoweap Granary [OC] [12216 × 3896]
+      description: null
+      datetime: 1493594403
+      type: image/jpeg
+      animated: false
+      width: 9773
+      height: 3117
+      size: 4425163
+      views: 2013
+      bandwidth: 8907853119
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/uMA4I7J.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 0
+      is_album: false
+    - id: ZpmWhX1
+      title: Got seat-belted into a trusty helicopter as the pilot carefully flew me over the Nā Pali Coast of Kauai,
+        Hawaii to take this shot [OC][2048x1365]
+      description: null
+      datetime: 1493676686
+      type: image/jpeg
+      animated: false
+      width: 2048
+      height: 1366
+      size: 1992394
+      views: 1891
+      bandwidth: 3767617054
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/ZpmWhX1.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 0
+      is_album: false
+    - id: wI7hn2J
+      title: West Virginia may have it's issues, but it sure is beautiful. Cabins, WV [5344x3066]
+      description: null
+      datetime: 1493594403
+      type: image/jpeg
+      animated: false
+      width: 2138
+      height: 1202
+      size: 756545
+      views: 1759
+      bandwidth: 1330762655
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/wI7hn2J.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 0
+      is_album: false
+    - id: lCutGyD
+      title: Crab Beach at the end of Cannibal Island Road, Humboldt County, CA [2000x1125] [OC]
+      description: null
+      datetime: 1493595603
+      type: image/jpeg
+      animated: false
+      width: 2000
+      height: 1125
+      size: 474211
+      views: 3106
+      bandwidth: 1472899366
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/lCutGyD.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 0
+      is_album: false
+    success: true
+    status: 200
+- group: Gallery
+  operation: Subreddit Image
+  method: GET
+  url: https://api.imgur.com/3/gallery/r/{{subreddit}}/{{subredditImageId}}
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      id: QJa0R6q
+      title: Shiprock - New Mexico [OC][1080x644]
+      description: null
+      datetime: 1493611803
+      type: image/jpeg
+      animated: false
+      width: 1080
+      height: 644
+      size: 86174
+      views: 149667
+      bandwidth: 12897404058
+      vote: null
+      favorite: false
+      nsfw: false
+      section: EarthPorn
+      account_url: null
+      account_id: null
+      is_ad: false
+      tags: []
+      in_most_viral: false
+      in_gallery: false
+      link: http://i.imgur.com/QJa0R6q.jpg
+      comment_count: null
+      ups: null
+      downs: null
+      points: null
+      score: 149665
+      is_album: false
+    success: true
+    status: 200
+- group: Gallery
+  operation: Gallery Tags
+  method: GET
+  url: https://api.imgur.com/3/tags
+  example_name: default
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      tags:
+      - id: '32179'
+        name: embroidery
+        display_name: embroidery
+        followers: 0
+        total_items: 270
+        background_hash: iPuYto5
+      - id: '7003'
+        name: rick_and_morty
+        display_name: rick and morty
+        followers: 61
+        total_items: 2040
+        background_hash: gmFssAG
+      - id: '112'
+        name: gaming
+        display_name: gaming
+        followers: 1924
+        total_items: 116988
+        background_hash: IHP8OaT
+      - id: '745'
+        name: aww
+        display_name: aww
+        followers: 163
+        total_items: 81401
+        background_hash: CEN9s8K
+      - id: '1836014'
+        name: science_and_tech
+        display_name: science and tech
+        followers: 9
+        total_items: 834
+        background_hash: CLrdVV6
+      - id: '1571089'
+        name: air_swimming
+        display_name: air swimming
+        followers: 0
+        total_items: 2
+        background_hash: 1vLtpXB
+      - id: '50086'
+        name: current_events
+        display_name: current events
+        followers: 27
+        total_items: 3813
+        background_hash: Iyz9AJZ
+      - id: '1012'
+        name: photography
+        display_name: photography
+        followers: 95
+        total_items: 13811
+        background_hash: JjJ7UBc
+      - id: '427'
+        name: anime
+        display_name: anime
+        followers: 1046
+        total_items: 15267
+        background_hash: 1O08gF2
+      - id: '1'
+        name: funny
+        display_name: funny
+        followers: 2608
+        total_items: 358356
+        background_hash: 5T5koLx
+      - id: '301'
+        name: puppy
+        display_name: puppy
+        followers: 84
+        total_items: 9018
+        background_hash: 1dQGsS9
+      - id: '181'
+        name: cosplay
+        display_name: cosplay
+        followers: 355
+        total_items: 15412
+        background_hash: cZWZSmA
+      - id: '151'
+        name: cats
+        display_name: cats
+        followers: 289
+        total_items: 12751
+        background_hash: qFtpv4k
+      - id: '133'
+        name: memes
+        display_name: memes
+        followers: 581
+        total_items: 230846
+        background_hash: IkZeAAy
+      - id: '24034'
+        name: golden_retriever
+        display_name: golden retriever
+        followers: 9
+        total_items: 657
+        background_hash: rKAbi90
+      - id: '10337'
+        name: perfect_loop
+        display_name: perfect loop
+        followers: 22
+        total_items: 1351
+        background_hash: R1dEESs
+      - id: '1828820'
+        name: eat_what_you_want
+        display_name: eat what you want
+        followers: 3
+        total_items: 800
+        background_hash: tvBBQUq
+      - id: '1042'
+        name: minecraft
+        display_name: minecraft
+        followers: 102
+        total_items: 14170
+        background_hash: Ikykl3U
+      - id: '10723'
+        name: fitness
+        display_name: fitness
+        followers: 161
+        total_items: 2442
+        background_hash: f8B0kEw
+      - id: '12427'
+        name: creativity
+        display_name: creativity
+        followers: 15
+        total_items: 2313
+        background_hash: NanxezK
+      - id: '4717'
+        name: nostalgia
+        display_name: nostalgia
+        followers: 19
+        total_items: 1550
+        background_hash: uEdCS9t
+      - id: '2124623'
+        name: wholesome
+        display_name: wholesome
+        followers: 5
+        total_items: 0
+        background_hash: 6xwDMxF
+      - id: '34'
+        name: tattoo
+        display_name: tattoo
+        followers: 121
+        total_items: 5347
+        background_hash: S8izsI3
+      - id: '85'
+        name: pokemon
+        display_name: pokemon
+        followers: 329
+        total_items: 12228
+        background_hash: 0hNEBcR
+      - id: '2398'
+        name: lego
+        display_name: lego
+        followers: 34
+        total_items: 3182
+        background_hash: oB1KOoT
+      - id: '49'
+        name: diy
+        display_name: diy
+        followers: 223
+        total_items: 6904
+        background_hash: QL9pTeJ
+      - id: '25'
+        name: wallpaper
+        display_name: wallpaper
+        followers: 499
+        total_items: 8540
+        background_hash: R1dEESs
+      - id: '2743'
+        name: banana_for_scale
+        display_name: banana for scale
+        followers: 7
+        total_items: 2061
+        background_hash: OFLek0A
+      - id: '40'
+        name: art
+        display_name: art
+        followers: 303
+        total_items: 140374
+        background_hash: f8B0kEw
+      - id: '640668'
+        name: the_great_outdoors
+        display_name: the great outdoors
+        followers: 6
+        total_items: 918
+        background_hash: zU89CUx
+      - id: '103'
+        name: star_wars
+        display_name: star wars
+        followers: 285
+        total_items: 17778
+        background_hash: UCUaMEu
+      - id: '814'
+        name: gifs
+        display_name: gifs
+        followers: 164
+        total_items: 3673
+        background_hash: qaYq4fG
+      - id: '1024'
+        name: awesome
+        display_name: awesome
+        followers: 129
+        total_items: 29118
+        background_hash: x0HXbK1
+      - id: '55060'
+        name: movies_and_tv
+        display_name: movies and tv
+        followers: 1
+        total_items: 2043
+        background_hash: C0pGMbY
+      - id: '18838'
+        name: storytime
+        display_name: storytime
+        followers: 9
+        total_items: 604
+        background_hash: jhE5UKO
+      - id: '50866'
+        name: inspiring
+        display_name: inspiring
+        followers: 39
+        total_items: 84811
+        background_hash: mr4OtIu
+      - id: '3211'
+        name: the_more_you_know
+        display_name: the more you know
+        followers: 73
+        total_items: 3857
+        background_hash: EpmW3Oy
+      - id: '55870'
+        name: old_school_cool
+        display_name: old school cool
+        followers: 0
+        total_items: 62
+        background_hash: fzXe2ol
+      - id: '9907'
+        name: transformation
+        display_name: transformation
+        followers: 10
+        total_items: 204
+        background_hash: hWiiySS
+      featured: nostalgia
+      galleries:
+      - id: 0
+        name: Most Viral
+        description: Today's most popular posts
+        topPost:
+          id: FimF0
+          title: sexting 101
+          description: null
+          datetime: 1491566570
+          cover: zvqtvfh
+          cover_width: 338
+          cover_height: 600
+          account_url: svgn
+          account_id: 24813003
+          privacy: hidden
+          layout: blog
+          views: 87615
+          link: http://imgur.com/a/FimF0
+          ups: 9410
+          downs: 130
+          points: 9280
+          score: 9280
+          is_album: true
+          vote: null
+          favorite: null
+          nsfw: false
+          section: TrollXChromosomes
+          comment_count: 397
+          topic: No Topic
+          topic_id: 29
+          images_count: 8
+          in_gallery: true
+          is_ad: false
+          tags: []
+          in_most_viral: true
+      - id: 1
+        name: User Submitted
+        description: Brand new posts shared in real time
+        topPost:
+          id: q6TxQKy
+          title: Advancements in night vision technology
+          description: 'A Las Vegas-based company called SPI has a colour night vision sensor called the X27. The
+            ultra-sensitive sensor is able to shoot both ordinary images during the day, as well as its colour night
+            vision images at night. Point it up at the sky, and you’ll be able to clearly see stars and constellations.
+
+
+            Source: https://www.youtube.com/watch?v=8bTgG2Ft4xQ'
+          datetime: 1491581287
+          type: image/gif
+          animated: true
+          width: 720
+          height: 404
+          size: 27214090
+          views: 7927
+          bandwidth: 215726091430
+          vote: null
+          favorite: false
+          nsfw: false
+          section: gifs
+          account_url: TotallyNotABrownBear
+          account_id: 38754689
+          is_ad: false
+          tags:
+          - name: photography
+            display_name: photography
+            followers: 95
+            total_items: 13811
+          - name: science_and_tech
+            display_name: science and tech
+            followers: 9
+            total_items: 834
+          in_most_viral: false
+          in_gallery: true
+          topic: No Topic
+          topic_id: 29
+          mp4: http://i.imgur.com/q6TxQKy.mp4
+          gifv: http://i.imgur.com/q6TxQKy.gifv
+          mp4_size: 2013900
+          link: http://i.imgur.com/q6TxQKyh.gif
+          looping: true
+          comment_count: 65
+          ups: 1349
+          downs: 4
+          points: 1345
+          score: 1348
+          is_album: false
+      - id: 2
+        name: Random
+        description: A mix from the Imgur archives
+        topPost:
+          id: GDaIC
+          title: 'Anyone know what this thing is? '
+          description: null
+          datetime: 1302675303
+          type: image/jpeg
+          animated: false
+          width: 1680
+          height: 1050
+          size: 317749
+          views: 123240
+          bandwidth: 39159386760
+          vote: null
+          favorite: false
+          nsfw: false
+          section: pics
+          account_url: null
+          account_id: null
+          is_ad: false
+          tags: []
+          in_most_viral: true
+          in_gallery: true
+          topic: null
+          topic_id: 0
+          link: http://i.imgur.com/GDaIC.jpg
+          comment_count: 72
+          ups: 399
+          downs: 4
+          points: 395
+          score: 456
+          is_album: false
+      - id: 3
+        name: Staff Picks
+        description: Great posts picked by Imgur staff
+        topPost:
+          id: PyumGeD
+          title: This made me laugh and smile.
+          description: null
+          datetime: 1491576109
+          type: image/gif
+          animated: true
+          width: 720
+          height: 720
+          size: 34276628
+          views: 32415
+          bandwidth: 1111076896620
+          vote: null
+          favorite: false
+          nsfw: false
+          section: gifs
+          account_url: TheOneThatGotBanned
+          account_id: 11170171
+          is_ad: false
+          tags:
+          - name: funny
+            display_name: funny
+            followers: 2608
+            total_items: 358356
+          - name: aww
+            display_name: aww
+            followers: 163
+            total_items: 81401
+          - name: funny_animal
+            display_name: funny animal
+            followers: 11
+            total_items: 717
+          - name: staff_picks
+            display_name: staff picks
+            followers: 6
+            total_items: 0
+          in_most_viral: true
+          in_gallery: true
+          topic: No Topic
+          topic_id: 29
+          mp4: http://i.imgur.com/PyumGeD.mp4
+          gifv: http://i.imgur.com/PyumGeD.gifv
+          mp4_size: 1953844
+          link: http://i.imgur.com/PyumGeDh.gif
+          looping: true
+          comment_count: 82
+          ups: 2008
+          downs: 56
+          points: 1952
+          score: 1968
+          is_album: false
+    success: true
+    status: 200
+- group: Gallery
+  operation: Gallery Tag Info
+  method: GET
+  url: https://api.imgur.com/3/gallery/tag_info/{{tagName}}
+  example_name: Sample Response
+  status: 200
+  status_text: OK
+  media_type: json
+  body:
+    data:
+      name: the_more_you_know
+      display_name: the more you know
+      followers: 76
+      total_items: 369594
+      following: false
+      background_hash: EpmW3Oy
+      is_promoted: false
+      description: ''
+      logo_hash: null
+      logo_destination_url: null
+      description_annotations: {}
+    success: true
+    status: 200
