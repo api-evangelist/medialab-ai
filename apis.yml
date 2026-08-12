@@ -109,6 +109,8 @@ apis:
   - type: Postman
     url: postman/medialab-ai-imgur-api.postman_collection.json
 common:
+- type: MCPServer
+  url: mcp/medialab-ai-mcp.yml
 - type: DomainSecurity
   url: security/medialab-ai-domain-security.yml
 - type: Website
