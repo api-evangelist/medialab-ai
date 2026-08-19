@@ -17,7 +17,7 @@ image: https://cdn.prod.website-files.com/6434b7d63112666081bedeb0/643591619f8e2
 url: https://raw.githubusercontent.com/api-evangelist/medialab-ai/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-01'
 modified: '2026-08-01'
 tags:
