@@ -5,13 +5,11 @@ source:
 - postman/medialab-ai-imgur-api.postman_collection.json
 - https://docs.genius.com/#resources
 search_result: none
-search_note: >-
-  No official or hosted MCP server exists for MediaLab.AI, Genius or Imgur. Searched
-  the MCP reference server catalogue, the official MCP registry and community
-  directories; neither brand appears. No /mcp, /sse or /message endpoint responds on
-  api.genius.com or api.imgur.com. NO apis.yml MCPServer pointer is emitted - this
-  file is a derived design candidate, not a published server, and must not be scored
-  as one.
+search_note: No official or hosted MCP server exists for MediaLab.AI, Genius or Imgur. Searched the MCP
+  reference server catalogue, the official MCP registry and community directories; neither brand appears.
+  No /mcp, /sse or /message endpoint responds on api.genius.com or api.imgur.com. NO apis.yml MCPServer
+  pointer is emitted - this file is a derived design candidate, not a published server, and must not be
+  scored as one.
 server:
   name: medialab-ai
   transport: http
@@ -80,9 +78,8 @@ tools:
   constraint: Pass only one of song_id and web_page_id, not both.
   auth: client access token (no scope required)
 - name: genius_lookup_web_page
-  description: >-
-    Look up a web page by its full URL to get the Genius ID used for referent lookups.
-    Only available for pages that already have at least one annotation.
+  description: Look up a web page by its full URL to get the Genius ID used for referent lookups. Only
+    available for pages that already have at least one annotation.
   source_operation: 'Genius API: GET /web_pages/lookup'
   inputs:
   - name: raw_annotatable_url
@@ -137,13 +134,16 @@ coverage:
   tools_proposed: 17
   imgur_requests_documented: 85
   genius_endpoints_documented: 13
-  note: >-
-    Deliberately limited to read-mostly and low-consequence operations. Write and
-    destructive operations (annotation create/delete, votes, album/image deletion,
-    account settings, blocks, reporting) are intentionally NOT proposed as tools.
+  note: Deliberately limited to read-mostly and low-consequence operations. Write and destructive operations
+    (annotation create/delete, votes, album/image deletion, account settings, blocks, reporting) are intentionally
+    NOT proposed as tools.
 tool_crosswalk: null
-tool_crosswalk_note: >-
-  No mcp/medialab-ai-tool-crosswalk.yml is emitted. The crosswalk binds MCP tools to
-  backing OpenAPI operationIds so a tool inherits a real inputSchema; neither brand
-  publishes an OpenAPI, and there is no published MCP server, so there is nothing on
-  either side of the crosswalk to bind.
+tool_crosswalk_note: No mcp/medialab-ai-tool-crosswalk.yml is emitted. The crosswalk binds MCP tools to
+  backing OpenAPI operationIds so a tool inherits a real inputSchema; neither brand publishes an OpenAPI,
+  and there is no published MCP server, so there is nothing on either side of the crosswalk to bind.
+deployment:
+  mode: none
+  verified: derived
+  tools: 17
+  checked: '2026-08-12'
+  source: catalog MCP census
