@@ -26,6 +26,17 @@ tags:
 - Social
 - Advertising
 - Content
+- Image
+- Music
+- Messaging
+- Communities
+- Holding Company
+tags_raw:
+- Company
+- Media
+- Social
+- Advertising
+- Content
 - Images
 - Music
 - Messaging
@@ -82,6 +93,12 @@ apis:
   humanURL: https://apidocs.imgur.com/
   baseURL: https://api.imgur.com/3/
   tags:
+  - Image
+  - Photos
+  - Media
+  - Social
+  - Community
+  tags_raw:
   - Images
   - Photos
   - Media
