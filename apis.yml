@@ -13,6 +13,17 @@ description: 'MediaLab.AI Inc. is a Santa Monica, California holding company for
   OAuth 2.0, annotations/songs/artists/search) and the Imgur API v3 (apidocs.imgur.com,
   OAuth 2.0, images/albums/galleries/comments/accounts), the latter documented as a
   public Postman collection.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/6434b7d63112666081bedeb0/643591619f8e24bf570e827e_medialab-webclip.jpg
 url: https://raw.githubusercontent.com/api-evangelist/medialab-ai/refs/heads/main/apis.yml
 x-type: company
