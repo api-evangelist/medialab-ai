@@ -87,6 +87,12 @@ apis:
   tags:
   - Music
   - Lyrics
+  - Annotation
+  - Content
+  - Search
+  tags_raw:
+  - Music
+  - Lyrics
   - Annotations
   - Content
   - Search
