@@ -64,5 +64,123 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-MediaLab.AI is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/medialab-ai_stock/
+MediaLab.AI Inc. is a Santa Monica, California holding company for consumer internet brands. Rather than building products from scratch, MediaLab acquires and operates established community and media properties, and monetizes them through advertising across an owned-and-operated portfolio that reaches roughly one in three US internet users each month. The portfolio includes Genius (music knowledge, lyrics and annotations), Imgur (image sharing and community), Kik (messaging), WorldStarHipHop (hip hop media), Whisper (anonymous sharing), Amino (interest communities) and DatPiff (mixtapes). MediaLab also operates Assembly Exchange, its owned-and-operated programmatic ad exchange. The company itself publishes no corporate developer portal; its public API surface is carried by two portfolio brands - the Genius API (docs.genius.com, OAuth 2.0, annotations/songs/artists/search) and the Imgur API v3 (apidocs.imgur.com, OAuth 2.0, images/albums/galleries/comments/accounts), the latter documented as a public Postman collection.
+
+**Areas:** Company · Media · Social · Advertising · Content · Image · Music · Messaging · Community · Holding Company
+
+## MediaLab.AI on APIs.io
+
+Everything profiled for MediaLab.AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/medialab-ai/](https://apis.io/providers/medialab-ai/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Genius API](https://apis.io/apis/medialab-ai/genius-api/) — The Genius API exposes the music knowledge community behind genius.com: annotations (crowd-sourced explanations attached to a fragment of a document),…
+- [Imgur API](https://apis.io/apis/medialab-ai/imgur-api/) — The Imgur API (version 3) exposes the Imgur image-sharing and community platform over a RESTful HTTPS interface: image upload and retrieval, albums, the…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [medialab-ai](https://apis.io/servers/medialab-ai/medialab-ai/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [Imgur API](https://apis.io/collections/medialab-ai/postman-medialab-ai-imgur-api/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Medialab Ai Authentication](https://apis.io/security/medialab-ai/medialab-ai-authentication/)
+- [Medialab Ai Domain Security](https://apis.io/security/medialab-ai/medialab-ai-domain-security/)
+- [Medialab Ai Vulnerability Disclosure](https://apis.io/security/medialab-ai/medialab-ai-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Medialab Ai Scopes](https://apis.io/scopes/medialab-ai/medialab-ai-scopes/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Medialab Ai Rate Limits](https://apis.io/rate-limits/medialab-ai/medialab-ai-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://medialab.la/)
+- [Documentation](https://docs.genius.com/)
+- [Getting started](https://docs.genius.com/#getting-started)
+- [API reference](https://apidocs.imgur.com/)
+- [Pricing](https://rapidapi.com/imgur/api/imgur-9/pricing)
+- [Sign up](https://api.imgur.com/oauth2/addclient)
+- [Support](https://help.imgur.com/hc/en-us)
+- [Security](https://bugcrowd.com/engagements/Genius-VDP)
+- [Terms of service](https://medialab.la/terms-of-service)
+- [Privacy policy](https://medialab.la/privacy-policy)
+- [GitHub](https://github.com/medialab-ai)
+- [Status](https://status.imgur.com/)
+
+## API Evangelist rating
+
+**Kin Score 42.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 6.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 68.4 |
+| Developer ergonomics | 56.1 |
+| Access clarity | 44.7 |
+
+**Agent readiness 10.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 40.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/medialab-ai/](https://apis.io/providers/medialab-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for MediaLab.AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/medialab-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
